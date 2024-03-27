@@ -1,6 +1,7 @@
 <template>
   <header>
     <div class="header">
+      <Search />
       <text style="color: black">Vue task manager</text>
       <button @click="openModal" class="createTask">
         <span class="button-text">Create Task</span>
@@ -11,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import Search from './Search.vue'
 import { modalStore } from '@/stores/modalStore'
 const modalData = modalStore()
 const { openModal } = modalData // use the openModal function in modalStore
@@ -18,6 +20,7 @@ const { openModal } = modalData // use the openModal function in modalStore
 
 <style scoped>
 .header {
+  align-items: center;
   display: flex;
   background-color: lightgoldenrodyellow;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
