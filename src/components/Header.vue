@@ -2,7 +2,7 @@
   <header>
     <div class="header">
       <Search />
-      <text style="color: black">Vue task manager</text>
+      <text>Elite Task</text>
       <button @click="openModal" class="createTask">
         <span class="button-text">Create Task</span>
         <span class="icon">&#9998;</span>

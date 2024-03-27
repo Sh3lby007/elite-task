@@ -29,8 +29,8 @@ const { closeModal } = modalData
   flex-direction: column;
   justify-content: center;
   gap: 0.4rem;
-  width: 450px;
-  padding: 1.3rem;
+  width: 500px;
+  padding: 2rem;
   min-height: 250px;
   position: fixed;
   top: 50%;
@@ -41,7 +41,19 @@ const { closeModal } = modalData
   border-radius: 15px;
   z-index: 10;
 }
+/* Default styles for larger screens */
+@media (min-width: 600px) {
+  .modal {
+    width: 500px; /* Set a fixed width for larger screens */
+  }
+}
 
+/* Styles for smaller screens */
+@media (max-width: 550px) {
+  .modal {
+    width: 80vw; /* Set the width to 90% of the viewport width */
+  }
+}
 .modal .flex {
   display: flex;
   align-items: center;
