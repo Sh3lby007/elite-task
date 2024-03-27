@@ -65,35 +65,4 @@ const { openModal } = modalData // use the openModal function in modalStore
 .createTask:active .button-text {
   opacity: 0;
 }
-
-.createTask:active .icon {
-  opacity: 1;
-}
-.createTask:after {
-  content: '';
-  display: block;
-  position: absolute;
-  border-radius: 4em;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: all 0.5s;
-  box-shadow: 0 0 10px 40px white;
-}
-
-.createTask:active:after {
-  box-shadow: 0 0 0 0 white;
-  position: absolute;
-  border-radius: 4em;
-  left: 0;
-  top: 0;
-  opacity: 1;
-  transition: 0s;
-}
-
-.createTask:active {
-  top: 1px;
-}
 </style>

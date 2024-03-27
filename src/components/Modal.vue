@@ -1,7 +1,6 @@
 <template>
-  <section class="modal hidden">
+  <section class="modal">
     <div class="flex">
-      <!-- <img src="user.png" width="50px" height="50px" alt="user" /> -->
       <button @click="closeModal" class="btn-close">⨉</button>
     </div>
     <div>
@@ -15,9 +14,6 @@
     <input type="email" id="email" placeholder="brendaneich@js.com" />
     <button class="btn">Submit</button>
   </section>
-
-  <div class="overlay hidden"></div>
-  <button class="btn btn-open">Open Modal</button>
 </template>
 
 <script setup lang="ts">
@@ -28,23 +24,6 @@ const { closeModal } = modalData
 </script>
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #222;
-  position: relative;
-  min-height: 100vh;
-}
-
 .modal {
   display: flex;
   flex-direction: column;
@@ -53,17 +32,20 @@ body {
   width: 450px;
   padding: 1.3rem;
   min-height: 250px;
-  position: absolute;
-  top: 20%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
-  border: 1px solid #ddd;
+  border: 3px solid #ddd;
   border-radius: 15px;
+  z-index: 10;
 }
 
 .modal .flex {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .modal input {
