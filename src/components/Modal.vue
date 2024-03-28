@@ -44,30 +44,39 @@
 
 <script setup lang="ts">
 import { modalStore } from '@/stores/modalStore'
+import { taskStore, type Task, PriorityLevel } from '@/stores/taskStore'
 import { reactive, ref } from 'vue'
 
 const modalData = modalStore()
+const taskData = taskStore()
 const { closeModal } = modalData
 const isEditMode = ref(false)
 const task = reactive({
   title: '',
   description: '',
   endDate: '',
-  priority: 'Low'
+  priority: PriorityLevel.Low // Set the default priority to Low
 })
 
 const handleSubmit = () => {
-  // Handle form submission logic
   if (isEditMode.value) {
-    // Update task logic
+    const updatedTask: Task = {
+      title: task.title,
+      description: task.description,
+      endDate: task.endDate,
+      priority: task.priority
+    }
+    taskData.updateTask(updatedTask)
   } else {
-    // Add new task logic
+    taskData.addTask(task)
   }
   closeModal()
 }
 
 const deleteTask = () => {
-  // Delete task logic
+  if (isEditMode.value && task.title) {
+    taskData.deleteTask(task.title)
+  }
   closeModal()
 }
 </script>
