@@ -6,7 +6,6 @@ export enum PriorityLevel {
   High = 'high'
 }
 export interface Task {
-  // id: string
   title: string
   description: string
   endDate: string
