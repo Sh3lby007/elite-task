@@ -42,7 +42,7 @@ const filterStatus = ref('')
 const tasks = ref<Task[]>([])
 
 const updateSearchQuery = (query: string) => {
-  searchQuery.value = query
+  searchQuery.value = query.trim()
   console.log('Received search query:', query)
 }
 

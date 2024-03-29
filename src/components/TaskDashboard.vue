@@ -69,35 +69,48 @@ const props = defineProps({
 })
 
 const filteredUpcomingTasks = computed(() => {
-  return tasks.filter(
-    (task) =>
-      task.status === TaskStatus.Upcoming &&
-      task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-      (props.filteredPriority === '' ||
-        task.priority === props.filteredPriority)
-  )
+  if (props.searchQuery.trim() === '') {
+    return taskStore.tasks.filter((task) => task.status === TaskStatus.Upcoming)
+  } else {
+    return tasks.filter(
+      (task) =>
+        task.status === TaskStatus.Upcoming &&
+        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+        (props.filteredPriority === '' ||
+          task.priority === props.filteredPriority)
+    )
+  }
 })
 
 const filteredOverdueTasks = computed(() => {
-  return tasks.filter(
-    (task) =>
-      task.status === TaskStatus.Overdue &&
-      task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-      (props.filteredPriority === '' ||
-        task.priority === props.filteredPriority)
-  )
+  if (props.searchQuery.trim() === '') {
+    return taskStore.tasks.filter((task) => task.status === TaskStatus.Overdue)
+  } else {
+    return tasks.filter(
+      (task) =>
+        task.status === TaskStatus.Overdue &&
+        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+        (props.filteredPriority === '' ||
+          task.priority === props.filteredPriority)
+    )
+  }
 })
 
 const filteredCompletedTasks = computed(() => {
-  return tasks.filter(
-    (task) =>
-      task.status === TaskStatus.Completed &&
-      task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-      (props.filteredPriority === '' ||
-        task.priority === props.filteredPriority)
-  )
+  if (props.searchQuery.trim() === '') {
+    return taskStore.tasks.filter(
+      (task) => task.status === TaskStatus.Completed
+    )
+  } else {
+    return tasks.filter(
+      (task) =>
+        task.status === TaskStatus.Completed &&
+        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+        (props.filteredPriority === '' ||
+          task.priority === props.filteredPriority)
+    )
+  }
 })
-console.log(props.searchQuery)
 </script>
 
 <style scoped>

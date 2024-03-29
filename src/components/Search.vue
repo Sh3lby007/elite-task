@@ -21,14 +21,12 @@ const emit = defineEmits(['search'])
 // Functions
 const emitSearchEvent = () => {
   const searchValue = searchQuery.value.trim()
-  if (searchValue) {
-    emit('search', searchValue)
-  }
+  emit('search', searchValue)
 }
 
 const resetSearch = () => {
   searchQuery.value = ''
-  emitSearchEvent()
+  emit('search', '')
 }
 </script>
 
