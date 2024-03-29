@@ -25,6 +25,14 @@
           <option value="high">High</option>
         </select>
       </div>
+      <div v-if="isEditMode" class="status">
+        <label for="status">Status:</label>
+        <select id="status" v-model="task.status">
+          <option :value="TaskStatus.Upcoming">Upcoming</option>
+          <option :value="TaskStatus.Overdue">Overdue</option>
+          <option :value="TaskStatus.Completed">Completed</option>
+        </select>
+      </div>
       <div class="actions">
         <button type="submit" class="btn">
           {{ isEditMode ? 'Update' : 'Add' }}
@@ -44,7 +52,12 @@
 
 <script setup lang="ts">
 import { modalStore } from '@/stores/modalStore'
-import { taskStore, type Task, PriorityLevel } from '@/stores/taskStore'
+import {
+  taskStore,
+  type Task,
+  PriorityLevel,
+  TaskStatus
+} from '@/stores/taskStore'
 import { reactive, ref } from 'vue'
 
 const modalData = modalStore()
@@ -55,7 +68,8 @@ const task = reactive({
   title: '',
   description: '',
   endDate: '',
-  priority: PriorityLevel.Low // Set the default priority to Low
+  priority: PriorityLevel.Low, // Set the default priority to Low
+  status: TaskStatus.Upcoming
 })
 
 const handleSubmit = () => {
@@ -64,7 +78,8 @@ const handleSubmit = () => {
       title: task.title,
       description: task.description,
       endDate: task.endDate,
-      priority: task.priority
+      priority: task.priority,
+      status: task.status
     }
     taskData.updateTask(updatedTask)
   } else {
@@ -82,6 +97,25 @@ const deleteTask = () => {
 </script>
 
 <style scoped>
+/* Default styles for larger screens */
+@media (min-width: 600px) {
+  .modal {
+    width: 500px; /* Set a fixed width for larger screens */
+  }
+  .btn {
+    width: 500px;
+  }
+}
+
+/* Styles for smaller screens */
+@media (max-width: 550px) {
+  .modal {
+    width: 80vw; /* Set the width to 90% of the viewport width */
+  }
+  .btn {
+    width: 80vw;
+  }
+}
 .modal {
   display: flex;
   flex-direction: column;
@@ -99,30 +133,10 @@ const deleteTask = () => {
   z-index: 10;
   overflow: auto;
 }
-/* Default styles for larger screens */
-@media (min-width: 600px) {
-  .modal {
-    width: 500px; /* Set a fixed width for larger screens */
-  }
-}
-
-/* Styles for smaller screens */
-@media (max-width: 550px) {
-  .modal {
-    width: 80vw; /* Set the width to 90% of the viewport width */
-  }
-}
 .flex {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-input {
-  padding: 0.7rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 0.9em;
 }
 
 .modal p {
@@ -131,21 +145,13 @@ input {
   margin: 0.4rem 0 0.2rem;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  font-weight: 600;
-}
-
 .actions {
   display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
   background-color: green;
   color: white;
   text-align: center;
@@ -161,16 +167,6 @@ button {
   font-size: 1.2rem;
   cursor: pointer;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-label {
-  font-weight: bold;
-}
 .title-area {
   display: contents;
 }
@@ -182,5 +178,41 @@ label {
 }
 .priority {
   display: contents;
+}
+.status {
+  display: contents;
+}
+
+select {
+  height: 50px;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+}
+input {
+  height: 20px;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 16px;
+}
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  height: 100px;
+  font-size: 18px;
 }
 </style>

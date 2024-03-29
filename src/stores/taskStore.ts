@@ -5,11 +5,17 @@ export enum PriorityLevel {
   Medium = 'medium',
   High = 'high'
 }
+export enum TaskStatus {
+  Upcoming = 'upcoming',
+  Overdue = 'overdue',
+  Completed = 'completed'
+}
 export interface Task {
   title: string
   description: string
   endDate: string
   priority: PriorityLevel
+  status: TaskStatus
 }
 
 export const taskStore = defineStore('task', {
