@@ -67,49 +67,58 @@ const props = defineProps({
     default: ''
   }
 })
-
 const filteredUpcomingTasks = computed(() => {
-  if (props.searchQuery.trim() === '') {
-    return taskStore.tasks.filter((task) => task.status === TaskStatus.Upcoming)
-  } else {
-    return tasks.filter(
+  let filtered = tasks.filter((task) => task.status === TaskStatus.Upcoming)
+
+  if (props.searchQuery.trim() !== '') {
+    filtered = filtered.filter(
       (task) =>
-        task.status === TaskStatus.Upcoming &&
-        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-        (props.filteredPriority === '' ||
-          task.priority === props.filteredPriority)
+        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+        task.description.toLowerCase().includes(props.searchQuery.toLowerCase())
     )
   }
+  if (props.filteredPriority !== '') {
+    filtered = filtered.filter(
+      (task) => task.priority === props.filteredPriority
+    )
+  }
+  return filtered
 })
 
 const filteredOverdueTasks = computed(() => {
-  if (props.searchQuery.trim() === '') {
-    return taskStore.tasks.filter((task) => task.status === TaskStatus.Overdue)
-  } else {
-    return tasks.filter(
+  let filtered = tasks.filter((task) => task.status === TaskStatus.Overdue)
+
+  if (props.searchQuery.trim() !== '') {
+    filtered = filtered.filter(
       (task) =>
-        task.status === TaskStatus.Overdue &&
-        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-        (props.filteredPriority === '' ||
-          task.priority === props.filteredPriority)
+        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+        task.description.toLowerCase().includes(props.searchQuery.toLowerCase())
     )
   }
+  if (props.filteredPriority !== '') {
+    filtered = filtered.filter(
+      (task) => task.priority === props.filteredPriority
+    )
+  }
+  return filtered
 })
 
 const filteredCompletedTasks = computed(() => {
-  if (props.searchQuery.trim() === '') {
-    return taskStore.tasks.filter(
-      (task) => task.status === TaskStatus.Completed
-    )
-  } else {
-    return tasks.filter(
+  let filtered = tasks.filter((task) => task.status === TaskStatus.Completed)
+
+  if (props.searchQuery.trim() !== '') {
+    filtered = filtered.filter(
       (task) =>
-        task.status === TaskStatus.Completed &&
-        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-        (props.filteredPriority === '' ||
-          task.priority === props.filteredPriority)
+        task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+        task.description.toLowerCase().includes(props.searchQuery.toLowerCase())
     )
   }
+  if (props.filteredPriority !== '') {
+    filtered = filtered.filter(
+      (task) => task.priority === props.filteredPriority
+    )
+  }
+  return filtered
 })
 </script>
 
