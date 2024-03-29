@@ -9,11 +9,7 @@
         <div v-show="showOptionsMenu" class="options-dropdown">
           <button @click="openEditModal(task)">Edit</button>
           <button @click="deleteTask(task)">Delete</button>
-          <div class="status-options">
-            <span @click="markAsCompleted(task)">Mark as Completed</span>
-            <span @click="markAsOverdue(task)">Mark as Overdue</span>
-            <span @click="markAsToDo(task)">Mark as To Do</span>
-          </div>
+          <button @click="markAsCompleted(task)">Completed</button>
         </div>
       </div>
     </div>
@@ -25,7 +21,7 @@
 <script setup lang="ts">
 import { type Task, TaskStatus, useTaskStore } from '@/stores/taskStore'
 import { useModalStore } from '@/stores/modalStore'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const taskStore = useTaskStore()
 const modalStore = useModalStore()
@@ -36,6 +32,11 @@ const props = defineProps<{
 
 const showOptionsMenu = ref(false)
 
+const isOverdue = computed(() => {
+  const currentDate = new Date()
+  const dueDate = new Date(props.task.endDate)
+  return dueDate < currentDate && props.task.status !== 'completed'
+})
 const openEditModal = (task: Task) => {
   modalStore.openModal(task, true) //pass task data and turn edit mode on in modal
   showOptionsMenu.value = false
@@ -48,18 +49,6 @@ const deleteTask = (task: Task) => {
 
 const markAsCompleted = (task: Task) => {
   const updatedTask = { ...task, status: TaskStatus.Completed }
-  taskStore.updateTask(updatedTask)
-  showOptionsMenu.value = false
-}
-
-const markAsOverdue = (task: Task) => {
-  const updatedTask = { ...task, status: TaskStatus.Overdue }
-  taskStore.updateTask(updatedTask)
-  showOptionsMenu.value = false
-}
-
-const markAsToDo = (task: Task) => {
-  const updatedTask = { ...task, status: TaskStatus.Upcoming }
   taskStore.updateTask(updatedTask)
   showOptionsMenu.value = false
 }

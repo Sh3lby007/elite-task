@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="header">
-      <Search />
+      <Search @search="$emit('search', $event)" />
       <text>Elite Task</text>
       <button @click="openModal" class="createTask">
         <span class="button-text">Create Task</span>

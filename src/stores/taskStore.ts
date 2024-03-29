@@ -24,6 +24,13 @@ export const useTaskStore = defineStore('task', {
   }),
   actions: {
     addTask(newTask: Task) {
+      const currentDate = new Date()
+      const dueDate = new Date(newTask.endDate)
+      if (dueDate < currentDate) {
+        newTask.status = TaskStatus.Overdue
+      } else {
+        newTask.status = TaskStatus.Upcoming
+      }
       this.tasks.push(newTask)
     },
     updateTask(updatedTask: Task) {
@@ -39,6 +46,15 @@ export const useTaskStore = defineStore('task', {
       if (index !== -1) {
         this.tasks.splice(index, 1)
       }
+    }
+  },
+  getters: {
+    overdueTasks: (state) => {
+      const currentDate = new Date()
+      return state.tasks.filter((task) => {
+        const dueDate = new Date(task.endDate)
+        return dueDate < currentDate && task.status !== 'completed'
+      })
     }
   },
   /**  https://www.npmjs.com/package/pinia-plugin-persistedstate

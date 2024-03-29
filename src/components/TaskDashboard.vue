@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard">
-    <div class="dashboard-section">
+    <div
+      v-if="!filteredStatus || filteredStatus === TaskStatus.Upcoming"
+      class="dashboard-section"
+    >
       <h2>Upcoming Tasks</h2>
       <div class="task-cards">
         <TaskCards
@@ -11,7 +14,10 @@
       </div>
     </div>
 
-    <div class="dashboard-section">
+    <div
+      v-if="!filteredStatus || filteredStatus === TaskStatus.Overdue"
+      class="dashboard-section"
+    >
       <h2>Overdue Tasks</h2>
       <div class="task-cards">
         <TaskCards
@@ -22,7 +28,10 @@
       </div>
     </div>
 
-    <div class="dashboard-section">
+    <div
+      v-if="!filteredStatus || filteredStatus === TaskStatus.Completed"
+      class="dashboard-section"
+    >
       <h2>Completed Tasks</h2>
       <div class="task-cards">
         <TaskCards
@@ -58,10 +67,11 @@ const props = defineProps({
     default: ''
   }
 })
+
 const filteredUpcomingTasks = computed(() => {
-  return taskStore.tasks.filter(
+  return tasks.filter(
     (task) =>
-      task.status === 'upcoming' &&
+      task.status === TaskStatus.Upcoming &&
       task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
       (props.filteredPriority === '' ||
         task.priority === props.filteredPriority)
@@ -69,9 +79,9 @@ const filteredUpcomingTasks = computed(() => {
 })
 
 const filteredOverdueTasks = computed(() => {
-  return taskStore.tasks.filter(
+  return tasks.filter(
     (task) =>
-      task.status === 'overdue' &&
+      task.status === TaskStatus.Overdue &&
       task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
       (props.filteredPriority === '' ||
         task.priority === props.filteredPriority)
@@ -79,14 +89,15 @@ const filteredOverdueTasks = computed(() => {
 })
 
 const filteredCompletedTasks = computed(() => {
-  return taskStore.tasks.filter(
+  return tasks.filter(
     (task) =>
-      task.status === 'completed' &&
+      task.status === TaskStatus.Completed &&
       task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
       (props.filteredPriority === '' ||
         task.priority === props.filteredPriority)
   )
 })
+console.log(props.searchQuery)
 </script>
 
 <style scoped>

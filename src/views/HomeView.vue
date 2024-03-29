@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import Header from '@/components/Header.vue'
 import TaskDashboard from '@/components/TaskDashboard.vue'
@@ -43,9 +43,19 @@ const tasks = ref<Task[]>([])
 
 const updateSearchQuery = (query: string) => {
   searchQuery.value = query
+  console.log('Received search query:', query)
 }
 
 const applyFilters = () => {
+  const currentDate = new Date()
+
+  tasks.value.forEach((task) => {
+    const dueDate = new Date(task.endDate)
+
+    if (dueDate < currentDate && task.status !== 'completed') {
+      task.status = TaskStatus.Overdue
+    }
+  })
   // Trigger the computed property to update based on the selected filters
   filteredTasks.value
 }
