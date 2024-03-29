@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
           icons: [
             // One full stop to reference a file in the same directory. Two full stop if we reference a file from the parent directory
             {
-              src: 'public\favicon.ico',
+              src: './assets/icon.png',
               type: 'image/png',
               sizes: '192x192',
               purpose: 'maskable'
