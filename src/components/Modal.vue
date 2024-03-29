@@ -7,19 +7,19 @@
     <form @submit.prevent="handleSubmit">
       <div class="title-area">
         <label for="title">Title:</label>
-        <input type="text" id="title" v-model="task.title" required />
+        <input type="text" id="title" v-model="taskData.title" required />
       </div>
       <div class="desc-area">
         <label for="description">Description:</label>
-        <textarea id="description" v-model="task.description"></textarea>
+        <textarea id="description" v-model="taskData.description"></textarea>
       </div>
       <div class="due-date">
         <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" v-model="task.endDate" />
+        <input type="date" id="dueDate" v-model="taskData.endDate" />
       </div>
       <div class="priority">
         <label for="priority">Priority:</label>
-        <select id="priority" v-model="task.priority">
+        <select id="priority" v-model="taskData.priority">
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
@@ -27,7 +27,7 @@
       </div>
       <div v-if="isEditMode" class="status">
         <label for="status">Status:</label>
-        <select id="status" v-model="task.status">
+        <select id="status" v-model="taskData.status">
           <option :value="TaskStatus.Upcoming">Upcoming</option>
           <option :value="TaskStatus.Overdue">Overdue</option>
           <option :value="TaskStatus.Completed">Completed</option>
@@ -51,46 +51,49 @@
 </template>
 
 <script setup lang="ts">
-import { modalStore } from '@/stores/modalStore'
+import { useModalStore } from '@/stores/modalStore'
 import {
-  taskStore,
+  useTaskStore,
   type Task,
   PriorityLevel,
   TaskStatus
 } from '@/stores/taskStore'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
-const modalData = modalStore()
-const taskData = taskStore()
-const { closeModal } = modalData
-const isEditMode = ref(false)
-const task = reactive({
+const modalStore = useModalStore()
+const taskStore = useTaskStore()
+const { closeModal } = modalStore
+const isEditMode = modalStore.isEditMode
+// const taskData = computed(() => modalStore.taskData)
+
+const taskData = reactive({
   title: '',
   description: '',
   endDate: '',
   priority: PriorityLevel.Low, // Set the default priority to Low
   status: TaskStatus.Upcoming
 })
+console.log(taskData)
 
 const handleSubmit = () => {
-  if (isEditMode.value) {
+  if (isEditMode) {
     const updatedTask: Task = {
-      title: task.title,
-      description: task.description,
-      endDate: task.endDate,
-      priority: task.priority,
-      status: task.status
+      title: taskData.title,
+      description: taskData.description,
+      endDate: taskData.endDate,
+      priority: taskData.priority,
+      status: taskData.status
     }
-    taskData.updateTask(updatedTask)
+    taskStore.updateTask(updatedTask)
   } else {
-    taskData.addTask(task)
+    taskStore.addTask(taskData)
   }
   closeModal()
 }
 
 const deleteTask = () => {
-  if (isEditMode.value && task.title) {
-    taskData.deleteTask(task.title)
+  if (isEditMode && taskData.title) {
+    taskStore.deleteTask(taskData.title)
   }
   closeModal()
 }

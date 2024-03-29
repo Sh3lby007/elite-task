@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import Modal from './components/Modal.vue'
-import { modalStore } from './stores/modalStore'
+import { useModalStore } from './stores/modalStore'
 import { storeToRefs } from 'pinia'
 
-const modalData = modalStore()
+const modalData = useModalStore()
 const { showModal } = storeToRefs(modalData)
 
 // console.log(showModal)

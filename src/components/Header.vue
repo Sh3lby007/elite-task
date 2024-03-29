@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import Search from './Search.vue'
-import { modalStore } from '@/stores/modalStore'
-const modalData = modalStore()
+import { useModalStore } from '@/stores/modalStore'
+const modalData = useModalStore()
 const { openModal } = modalData // use the openModal function in modalStore
 </script>
 

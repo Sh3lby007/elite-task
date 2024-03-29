@@ -36,13 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import { taskStore, TaskStatus } from '@/stores/taskStore'
+import { useTaskStore, TaskStatus } from '@/stores/taskStore'
 import TaskCards from '@/components/TaskCards.vue'
 
 import { computed } from 'vue'
 
-const taskData = taskStore()
-const tasks = taskData.tasks
+const taskStore = useTaskStore()
+const tasks = taskStore.tasks
 
 const upcomingTasks = computed(() => {
   return tasks.filter((task) => task.status === TaskStatus.Upcoming)
@@ -59,6 +59,7 @@ const completedTasks = computed(() => {
 
 <style scoped>
 .dashboard {
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;

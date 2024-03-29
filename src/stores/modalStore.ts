@@ -1,15 +1,22 @@
 import { defineStore } from 'pinia'
+import type { Task } from './taskStore'
 
-export const modalStore = defineStore('modal', {
+export const useModalStore = defineStore('modal', {
   state: () => ({
-    showModal: false
+    showModal: false,
+    taskData: null as Task | null,
+    isEditMode: false
   }),
   actions: {
-    openModal() {
+    openModal(task: Task | null, isEditMode: boolean) {
       this.showModal = true
+      this.taskData = task
+      this.isEditMode = isEditMode
     },
     closeModal() {
       this.showModal = false
+      this.taskData = null
+      this.isEditMode = false
     }
   },
   /**  https://www.npmjs.com/package/pinia-plugin-persistedstate

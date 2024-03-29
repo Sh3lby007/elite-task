@@ -18,7 +18,7 @@ export interface Task {
   status: TaskStatus
 }
 
-export const taskStore = defineStore('task', {
+export const useTaskStore = defineStore('task', {
   state: () => ({
     tasks: [] as Task[]
   }),
