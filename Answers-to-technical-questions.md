@@ -6,6 +6,27 @@ However, most of the work is done on Friday since the previous 2 days were full 
 
 # What was the most useful feature that was added to the latest version of your chosen language? Please include a snippet of code that shows how you've used it.
 
+One of the most useful features added to Vue 3 is the Composition API with the setup function. The Composition API allows for better code organization, reusability, and maintainability by enabling developers to encapsulate related logic into composable functions.
+
+In this project, I extensively used the Composition API with the setup function to manage the component's state, computed properties, and methods. Here's a snippet of code from the Search component that demonstrates the usage of the Composition API:
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const searchQuery = ref('')
+const emit = defineEmits(['search'])
+
+const emitSearchEvent = () => {
+  const searchValue = searchQuery.value.trim()
+  emit('search', searchValue)
+}
+
+const resetSearch = () => {
+  searchQuery.value = ''
+  emit('search', '')
+}
+</script>
+
 # How would you track down a performance issue in production? Have you ever had to do this?
 
 In my current work where we use webpack, I've used tools like webpack bundle
