@@ -10,6 +10,7 @@ One of the most useful features added to Vue 3 is the Composition API with the s
 
 In this project, I extensively used the Composition API with the setup function to manage the component's state, computed properties, and methods. Here's a snippet of code from the Search component that demonstrates the usage of the Composition API:
 
+```vue
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -26,6 +27,7 @@ const resetSearch = () => {
   emit('search', '')
 }
 </script>
+```
 
 # How would you track down a performance issue in production? Have you ever had to do this?
 

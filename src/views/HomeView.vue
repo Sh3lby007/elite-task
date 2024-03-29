@@ -1,13 +1,17 @@
 <template>
   <Header @search="updateSearchQuery" />
   <div class="filters">
-    <select v-model="filterPriority" @change="applyFilters">
+    <select
+      class="select-filter"
+      v-model="filterPriority"
+      @change="applyFilters"
+    >
       <option value="">All Priorities</option>
       <option value="low">Low</option>
       <option value="medium">Medium</option>
       <option value="high">High</option>
     </select>
-    <select v-model="filterStatus" @change="applyFilters">
+    <select class="select-filter" v-model="filterStatus" @change="applyFilters">
       <option value="">All Statuses</option>
       <option value="upcoming">Upcoming</option>
       <option value="overdue">Overdue</option>
@@ -43,7 +47,6 @@ const tasks = ref<Task[]>([])
 
 const updateSearchQuery = (query: string) => {
   searchQuery.value = query.trim()
-  console.log('Received search query:', query)
 }
 
 const applyFilters = () => {
@@ -98,5 +101,16 @@ const filteredTasks = computed(() => {
   height: 100%;
   background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2px);
+}
+.filters {
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+}
+.select-filter {
+  margin: 0.5em;
+  width: 40vw;
+  height: 2rem;
+  border-radius: 0.5em;
 }
 </style>
