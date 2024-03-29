@@ -19,17 +19,18 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'Elite Task',
           start_url: '/elite-task/',
-          display: 'standalone'
+          display: 'standalone',
+          theme_color: '#ffffff',
           // Smaller icon as launcher icon, larger icon for app switch.
-          // icons: [
-          // One full stop to reference a file in the same directory. Two full stop if we reference a file from the parent directory
-          // {
-          //   src: './assets/icons/bus-192.png',
-          //   type: 'image/png',
-          //   sizes: '192x192',
-          //   purpose: 'maskable'
-          // }
-          // ]
+          icons: [
+            // One full stop to reference a file in the same directory. Two full stop if we reference a file from the parent directory
+            {
+              src: 'public\favicon.ico',
+              type: 'image/png',
+              sizes: '192x192',
+              purpose: 'maskable'
+            }
+          ]
         }
       })
     ],
