@@ -58,7 +58,7 @@ import {
   PriorityLevel,
   TaskStatus
 } from '@/stores/taskStore'
-import { computed, reactive, ref } from 'vue'
+import { reactive } from 'vue'
 
 const modalStore = useModalStore()
 const taskStore = useTaskStore()
@@ -66,14 +66,17 @@ const { closeModal } = modalStore
 const isEditMode = modalStore.isEditMode
 // const taskData = computed(() => modalStore.taskData)
 
-const taskData = reactive({
+let taskData = reactive({
   title: '',
   description: '',
   endDate: '',
   priority: PriorityLevel.Low, // Set the default priority to Low
   status: TaskStatus.Upcoming
 })
-console.log(taskData)
+
+if (isEditMode) {
+  taskData = modalStore.taskData
+}
 
 const handleSubmit = () => {
   if (isEditMode) {
