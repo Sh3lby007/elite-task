@@ -4,7 +4,7 @@
       <h2>Upcoming Tasks</h2>
       <div class="task-cards">
         <TaskCards
-          v-for="task in upcomingTasks"
+          v-for="task in filteredUpcomingTasks"
           :key="task.title"
           :task="task"
         />
@@ -15,7 +15,7 @@
       <h2>Overdue Tasks</h2>
       <div class="task-cards">
         <TaskCards
-          v-for="task in overdueTasks"
+          v-for="task in filteredOverdueTasks"
           :key="task.title"
           :task="task"
         />
@@ -26,7 +26,7 @@
       <h2>Completed Tasks</h2>
       <div class="task-cards">
         <TaskCards
-          v-for="task in completedTasks"
+          v-for="task in filteredCompletedTasks"
           :key="task.title"
           :task="task"
         />
@@ -44,16 +44,48 @@ import { computed } from 'vue'
 const taskStore = useTaskStore()
 const tasks = taskStore.tasks
 
-const upcomingTasks = computed(() => {
-  return tasks.filter((task) => task.status === TaskStatus.Upcoming)
+const props = defineProps({
+  searchQuery: {
+    type: String,
+    default: ''
+  },
+  filteredPriority: {
+    type: String,
+    default: ''
+  },
+  filteredStatus: {
+    type: String,
+    default: ''
+  }
+})
+const filteredUpcomingTasks = computed(() => {
+  return taskStore.tasks.filter(
+    (task) =>
+      task.status === 'upcoming' &&
+      task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+      (props.filteredPriority === '' ||
+        task.priority === props.filteredPriority)
+  )
 })
 
-const overdueTasks = computed(() => {
-  return tasks.filter((task) => task.status === TaskStatus.Overdue)
+const filteredOverdueTasks = computed(() => {
+  return taskStore.tasks.filter(
+    (task) =>
+      task.status === 'overdue' &&
+      task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+      (props.filteredPriority === '' ||
+        task.priority === props.filteredPriority)
+  )
 })
 
-const completedTasks = computed(() => {
-  return tasks.filter((task) => task.status === TaskStatus.Completed)
+const filteredCompletedTasks = computed(() => {
+  return taskStore.tasks.filter(
+    (task) =>
+      task.status === 'completed' &&
+      task.title.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+      (props.filteredPriority === '' ||
+        task.priority === props.filteredPriority)
+  )
 })
 </script>
 
