@@ -20,6 +20,7 @@ const { openModal } = modalData // use the openModal function in modalStore
 
 <style scoped>
 .header {
+  font-weight: 600;
   align-items: center;
   display: flex;
   background-color: lightgoldenrodyellow;
