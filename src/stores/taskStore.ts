@@ -53,7 +53,7 @@ export const useTaskStore = defineStore('task', {
       const currentDate = new Date()
       return state.tasks.filter((task) => {
         const dueDate = new Date(task.endDate)
-        return dueDate < currentDate && task.status !== 'completed'
+        return dueDate < currentDate && task.status !== TaskStatus.Completed
       })
     }
   },

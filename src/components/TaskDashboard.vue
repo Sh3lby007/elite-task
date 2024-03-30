@@ -126,7 +126,6 @@ const filteredCompletedTasks = computed(() => {
 .dashboard {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
 
@@ -137,14 +136,13 @@ const filteredCompletedTasks = computed(() => {
 }
 
 .dashboard-section {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background-color: #f5f5f5;
+  border-radius: 1em;
   padding: 1rem;
 }
 
 .task-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.5rem;
 }
 </style>

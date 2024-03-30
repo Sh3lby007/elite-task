@@ -3,25 +3,40 @@
     <div class="card-header">
       <h3>{{ task.title }}</h3>
       <div class="options-menu">
-        <span class="three-dot-icon" @click="showOptionsMenu = !showOptionsMenu"
-          >&#8230;</span
-        >
+        <i
+          @click="showOptionsMenu = !showOptionsMenu"
+          class="fa-solid fa-ellipsis-vertical"
+        ></i>
         <div v-show="showOptionsMenu" class="options-dropdown">
-          <button @click="openEditModal(task)">Edit</button>
-          <button @click="deleteTask(task)">Delete</button>
-          <button @click="markAsCompleted(task)">Completed</button>
+          <div class="option" @click="openEditModal(task)">
+            <i class="fa-regular fa-edit"></i>
+            <span>Edit</span>
+          </div>
+          <div style="color: red" class="option" @click="deleteTask(task)">
+            <i class="fa-regular fa-trash-can"></i>
+            <span>Delete</span>
+          </div>
+          <div
+            v-if="task.status !== TaskStatus.Completed"
+            style="color: green"
+            class="option"
+            @click="markAsCompleted(task)"
+          >
+            <i class="fa-regular fa-circle-check"></i>
+            <span>Completed</span>
+          </div>
         </div>
       </div>
     </div>
     <p>{{ task.description }}</p>
-    <p>Due Date: {{ task.endDate }}</p>
+    <p>Due: {{ task.endDate }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { type Task, TaskStatus, useTaskStore } from '@/stores/taskStore'
 import { useModalStore } from '@/stores/modalStore'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const taskStore = useTaskStore()
 const modalStore = useModalStore()
@@ -32,11 +47,6 @@ const props = defineProps<{
 
 const showOptionsMenu = ref(false)
 
-const isOverdue = computed(() => {
-  const currentDate = new Date()
-  const dueDate = new Date(props.task.endDate)
-  return dueDate < currentDate && props.task.status !== 'completed'
-})
 const openEditModal = (task: Task) => {
   modalStore.openModal(task, true) //pass task data and turn edit mode on in modal
   showOptionsMenu.value = false
@@ -56,12 +66,11 @@ const markAsCompleted = (task: Task) => {
 
 <style scoped>
 .task-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background-color: #fff;
   padding: 1rem;
-  background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  border-radius: 1em;
   &:hover {
     transform: translateY(-5px);
   }
@@ -77,30 +86,33 @@ const markAsCompleted = (task: Task) => {
   position: relative;
 }
 
-.three-dot-icon {
-  cursor: pointer;
-}
-
 .options-dropdown {
   position: absolute;
   top: 100%;
   right: 0;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 1em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
   z-index: 1;
   display: flex;
   flex-direction: column;
 }
 
-.options-dropdown button,
 .options-dropdown span {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   cursor: pointer;
 }
-
-.status-options {
-  border-top: 1px solid #ccc;
+.option {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  border-radius: 1em;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    background-color: #f5f5f5;
+  }
 }
 </style>

@@ -55,7 +55,7 @@ const applyFilters = () => {
   tasks.value.forEach((task) => {
     const dueDate = new Date(task.endDate)
 
-    if (dueDate < currentDate && task.status !== 'completed') {
+    if (dueDate < currentDate && task.status !== TaskStatus.Completed) {
       task.status = TaskStatus.Overdue
     }
   })
