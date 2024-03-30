@@ -124,17 +124,21 @@ const filteredCompletedTasks = computed(() => {
 
 <style scoped>
 .dashboard {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
-  display: grid;
   gap: 1rem;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 768px) {
   .dashboard {
-    grid-template-columns: 1fr;
+    flex-direction: row;
+  }
+
+  .dashboard-section {
+    flex: 1;
   }
 }
-
 .dashboard-section {
   background-color: #f5f5f5;
   border-radius: 1em;
@@ -143,6 +147,6 @@ const filteredCompletedTasks = computed(() => {
 
 .task-cards {
   display: grid;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 </style>
