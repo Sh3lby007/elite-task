@@ -11,15 +11,19 @@
       </div>
       <div class="desc-area">
         <label for="description">Description:</label>
-        <textarea id="description" v-model="taskData.description"></textarea>
+        <textarea
+          id="description"
+          v-model="taskData.description"
+          required
+        ></textarea>
       </div>
       <div class="due-date">
-        <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" v-model="taskData.endDate" />
+        <label for="endDate">Due Date:</label>
+        <input type="date" id="endDate" v-model="taskData.endDate" required />
       </div>
       <div class="priority">
         <label for="priority">Priority:</label>
-        <select id="priority" v-model="taskData.priority">
+        <select id="priority" v-model="taskData.priority" required>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
@@ -65,7 +69,7 @@ const taskStore = useTaskStore()
 const { closeModal } = modalStore
 const isEditMode = modalStore.isEditMode
 // const taskData = computed(() => modalStore.taskData)
-
+const emit = defineEmits(['taskUpdated'])
 let taskData = reactive({
   title: '',
   description: '',
@@ -88,6 +92,7 @@ const handleSubmit = () => {
       status: taskData.status
     }
     taskStore.updateTask(updatedTask)
+    emit('taskUpdated', updatedTask)
   } else {
     taskStore.addTask(taskData)
   }

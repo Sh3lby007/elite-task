@@ -48,6 +48,8 @@ const props = defineProps<{
 const showOptionsMenu = ref(false)
 
 const openEditModal = (task: Task) => {
+  console.log(task)
+
   modalStore.openModal(task, true) //pass task data and turn edit mode on in modal
   showOptionsMenu.value = false
 }

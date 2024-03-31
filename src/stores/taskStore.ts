@@ -25,7 +25,7 @@ export const useTaskStore = defineStore('task', {
         title: 'Create design mockups',
         description:
           'Create user interface design mockups for the new website.',
-        endDate: '2023-06-10',
+        endDate: '2024-06-10',
         priority: PriorityLevel.High,
         status: TaskStatus.Upcoming
       },
@@ -33,42 +33,42 @@ export const useTaskStore = defineStore('task', {
         title: 'Develop landing page',
         description:
           'Develop the landing page based on the approved design mockups.',
-        endDate: '2023-06-15',
+        endDate: '2024-06-15',
         priority: PriorityLevel.Medium,
         status: TaskStatus.Upcoming
       },
       {
         title: 'Code review',
         description: 'Perform code review for the landing page implementation.',
-        endDate: '2023-06-18',
+        endDate: '2024-06-18',
         priority: PriorityLevel.Low,
         status: TaskStatus.Upcoming
       },
       {
         title: 'Deploy to production',
         description: 'Deploy the website to the production server.',
-        endDate: '2023-06-20',
+        endDate: '2024-06-20',
         priority: PriorityLevel.High,
         status: TaskStatus.Upcoming
       },
       {
         title: 'Write user documentation',
         description: 'Create user documentation for the new website features.',
-        endDate: '2023-06-25',
+        endDate: '2024-06-25',
         priority: PriorityLevel.Medium,
         status: TaskStatus.Upcoming
       },
       {
         title: 'Implement search functionality',
         description: 'Add search functionality to the website.',
-        endDate: '2023-05-30',
+        endDate: '2024-02-01',
         priority: PriorityLevel.High,
         status: TaskStatus.Overdue
       },
       {
         title: 'Fix responsive issues',
         description: 'Fix responsive layout issues on mobile devices.',
-        endDate: '2023-06-05',
+        endDate: '2024-06-05',
         priority: 'medium',
         status: TaskStatus.Completed
       }
@@ -90,7 +90,7 @@ export const useTaskStore = defineStore('task', {
         (task) => task.title === updatedTask.title
       )
       if (index !== -1) {
-        this.tasks[index] = updatedTask
+        this.tasks[index] = { ...this.tasks[index], ...updatedTask }
       }
     },
     deleteTask(taskTitle: string) {

@@ -23,7 +23,7 @@
     :filtered-priority="filterPriority"
     :filtered-status="filterStatus"
   />
-  <Modal v-if="showModal" />
+  <Modal v-if="showModal" @taskUpdated="handleTaskUpdated" />
   <div :class="{ overlay: showModal }"></div>
 </template>
 
@@ -35,10 +35,11 @@ import Header from '@/components/Header.vue'
 import TaskDashboard from '@/components/TaskDashboard.vue'
 import Modal from '@/components/Modal.vue'
 import { useModalStore } from '@/stores/modalStore'
-import { type Task, TaskStatus } from '@/stores/taskStore'
+import { useTaskStore, type Task, TaskStatus } from '@/stores/taskStore'
 
-const modalData = useModalStore()
-const { showModal } = storeToRefs(modalData)
+const modalStore = useModalStore()
+const taskStore = useTaskStore()
+const { showModal } = storeToRefs(modalStore)
 
 const searchQuery = ref('')
 const filterPriority = ref('')
@@ -88,6 +89,22 @@ const filteredTasks = computed(() => {
 
   return filtered
 })
+
+// Handle emit event from modal when tasks are updated
+const handleTaskUpdated = (updatedTask: Task) => {
+  const currentDate = new Date()
+  const dueDate = new Date(updatedTask.endDate)
+
+  if (updatedTask.status !== TaskStatus.Completed) {
+    if (dueDate >= currentDate) {
+      updatedTask.status = TaskStatus.Upcoming
+    } else {
+      updatedTask.status = TaskStatus.Overdue
+    }
+  }
+  // Update the task in the taskStore with the updated status
+  taskStore.updateTask(updatedTask)
+}
 </script>
 
 <style scoped>
