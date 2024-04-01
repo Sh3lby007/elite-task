@@ -39,9 +39,9 @@ just laying around the codebase which we successfully deleted which reduces the 
 # If you had more time, what additional features or improvements would you consider adding to the task management application?
 
 1. Creating sub-tasks when creating a new task, whereby each sub-task is
-   accompanied by a check-box or a list so that users can break down their
-   task and have a better understanding of what they need to do.
-2. Creating more boards to manage other projects and not just one so that
-   more can be done
-3. Drag and drop each task to allow users to easily re-order tasks to put the
-   more important ones higher and also to update the tasks status
+   accompanied by a check-box or a list so that users can break down their task and
+   have a better understanding of what they need to do.
+2. Creating more boards to manage other projects and not just one so that more can
+   be done
+3. Drag and drop each task to allow users to easily re-order tasks to put the more
+   important ones higher and also to update the tasks status
