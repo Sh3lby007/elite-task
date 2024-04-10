@@ -1,17 +1,13 @@
 <template>
   <Header @search="updateSearchQuery" />
   <div class="filters">
-    <select
-      class="select-filter"
-      v-model="filterPriority"
-      @change="applyFilters"
-    >
+    <select class="select-filter" v-model="filterPriority">
       <option value="">All Priorities</option>
       <option value="low">Low</option>
       <option value="medium">Medium</option>
       <option value="high">High</option>
     </select>
-    <select class="select-filter" v-model="filterStatus" @change="applyFilters">
+    <select class="select-filter" v-model="filterStatus">
       <option value="">All Statuses</option>
       <option value="upcoming">Upcoming</option>
       <option value="overdue">Overdue</option>
@@ -28,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import Header from '@/components/Header.vue'
@@ -44,51 +40,10 @@ const { showModal } = storeToRefs(modalStore)
 const searchQuery = ref('')
 const filterPriority = ref('')
 const filterStatus = ref('')
-const tasks = ref<Task[]>([])
 
 const updateSearchQuery = (query: string) => {
   searchQuery.value = query.trim()
 }
-
-const applyFilters = () => {
-  const currentDate = new Date()
-
-  tasks.value.forEach((task) => {
-    const dueDate = new Date(task.endDate)
-
-    if (dueDate < currentDate && task.status !== TaskStatus.Completed) {
-      task.status = TaskStatus.Overdue
-    }
-  })
-  // Trigger the computed property to update based on the selected filters
-  filteredTasks.value
-}
-const filteredTasks = computed(() => {
-  let filtered = tasks.value
-
-  // Apply search filter
-  if (searchQuery.value.trim() !== '') {
-    const lowerCaseSearchQuery = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(
-      (task) =>
-        task.title.toLowerCase().includes(lowerCaseSearchQuery) ||
-        task.description.toLowerCase().includes(lowerCaseSearchQuery)
-    )
-  }
-
-  // Apply priority filter
-  if (filterPriority.value !== '') {
-    filtered = filtered.filter((task) => task.priority === filterPriority.value)
-  }
-
-  // Apply status filter
-  if (filterStatus.value !== '') {
-    const status = filterStatus.value as TaskStatus
-    filtered = filtered.filter((task) => task.status === status)
-  }
-
-  return filtered
-})
 
 // Handle emit event from modal when tasks are updated
 const handleTaskUpdated = (updatedTask: Task) => {
@@ -107,7 +62,7 @@ const handleTaskUpdated = (updatedTask: Task) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .overlay {
   position: fixed;
   top: 0;

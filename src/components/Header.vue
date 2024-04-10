@@ -3,7 +3,7 @@
     <div class="header">
       <Search @search="$emit('search', $event)" />
       <text>Elite Task</text>
-      <button @click="openModal" class="createTask">
+      <button @click="openModal" class="create-task">
         <span class="button-text">Create Task</span>
         <span class="icon">&#9998;</span>
       </button>
@@ -18,7 +18,7 @@ const modalData = useModalStore()
 const { openModal } = modalData // use the openModal function in modalStore
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   font-weight: 600;
   align-items: center;
@@ -29,7 +29,7 @@ const { openModal } = modalData // use the openModal function in modalStore
   padding: 1rem;
   border-radius: 10px;
 }
-.createTask {
+.create-task {
   position: relative;
   padding: 0.5rem 1rem;
   background-color: #4285f4;
@@ -54,16 +54,16 @@ const { openModal } = modalData // use the openModal function in modalStore
 }
 
 /* Desktop styles */
-.createTask:hover .button-text {
+.create-task:hover .button-text {
   opacity: 0;
 }
 
-.createTask:hover .icon {
+.create-task:hover .icon {
   opacity: 1;
 }
 
 /* Mobile styles */
-.createTask:active .button-text {
+.create-task:active .button-text {
   opacity: 0;
 }
 </style>

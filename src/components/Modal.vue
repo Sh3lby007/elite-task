@@ -107,7 +107,7 @@ const deleteTask = () => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 /* Default styles for larger screens */
 @media (min-width: 600px) {
   .modal {

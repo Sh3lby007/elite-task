@@ -100,15 +100,6 @@ export const useTaskStore = defineStore('task', {
       }
     }
   },
-  getters: {
-    overdueTasks: (state) => {
-      const currentDate = new Date()
-      return state.tasks.filter((task) => {
-        const dueDate = new Date(task.endDate)
-        return dueDate < currentDate && task.status !== TaskStatus.Completed
-      })
-    }
-  },
   /**  https://www.npmjs.com/package/pinia-plugin-persistedstate
    *  Persists this store's state in localStorage to reuse across sessions
    *  Note that this is not efficient for large to extremely large state trees,

@@ -122,7 +122,7 @@ const filteredCompletedTasks = computed(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .dashboard {
   display: flex;
   flex-direction: column;

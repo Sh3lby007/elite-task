@@ -64,7 +64,7 @@ const markAsCompleted = (task: Task) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .task-card {
   background-color: #fff;
   padding: 1rem;
